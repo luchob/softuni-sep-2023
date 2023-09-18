@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MobiLeLeLe</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div>
+      <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
+        <a class="navbar-brand" href="/"><img alt="car picture" src="/img/car.png" class="logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto col-12 justify-content-between">
+                <li class="nav-item"
+                    >
+                    <a class="nav-link" href="/brands/all">All Brands</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/offers/add">Add Offer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/offers/all">All Offers</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/">Action</a>
+                        <a class="dropdown-item" href="/">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="form-inline my-2 my-lg-0 border px-3">
+                        <div class="logged-user"
+                             text="Welcome, Gosho"></div>
+                        <a class="nav-link" href="/users/logout">Logout</a>
+                    </div>
+                </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/login">Login</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </nav>
+</div>
+
+
+<div class="container">
+    <h2 class="text-center text-white">Update Offer</h2>
+    <form method="POST"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <div class="row">
+
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-center text-white font-weight-bold" for="model">Model</label>
+                <select id="model" class="form-control">
+                    <option value="">- Select a model -</option>
+                    <optgroup label="Brand name">
+                        <option>Model</option>
+                    </optgroup>
+                </select>
+                <p class="errors alert alert-danger">
+                    Vechicle model is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="price" class="text-white font-weight-bold">Price</label>
+                <input  id="price" type="number" min="0" step="100" class="form-control"
+                       placeholder="Suggested price"/>
+                <p class="errors alert alert-danger">
+                    Suggested price is required.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-center text-white font-weight-bold" for="engine">Engine</label>
+                <select id="engine" class="form-control">
+                    <option value="">- Select engine type -</option>
+                    <option>
+                        Engine type
+                    </option>
+                </select>
+                <p class="errors alert alert-danger">
+                    Engine type is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-center text-white font-weight-bold" for="transmission">Transmission</label>
+                <select id="transmission" class="form-control">
+                    <option value="">- Select transmission type -</option>
+                    <option> Transmission type
+                    </option>
+                </select>
+                <p class="errors alert alert-danger">
+                    Transmission type is required.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="year" class="text-white font-weight-bold">Year</label>
+                <input id="year" type="number" min="1900" max="2099" step="1" class="form-control"
+                       placeholder="Manufacturing year"/>
+                <p class="errors alert alert-danger">
+                    Manufacturing year is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="mileage" class="text-white font-weight-bold">Mileage</label>
+                <input id="mileage" type="number" min="0" max="900000" step="1000"
+                       class="form-control"
+                       placeholder="Mileage in kilometers"/>
+                <p class="errors alert alert-danger">
+                    Mileage in kilometers is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="text-white font-weight-bold" for="description">Description</label>
+            <textarea id="description" type="textarea" class="form-control" rows="3"
+                      placeholder="Description"></textarea>
+            <p class="errors alert alert-danger">
+                Description is required.
+            </p>
+        </div>
+        <div class="form-group">
+            <label class="text-white font-weight-bold" for="imageUrl">Image URL</label>
+            <input id="imageUrl" type="url" class="form-control"
+                   placeholder="Put vehicle image URL here">
+            <p class="errors alert alert-danger">
+                Vehicle image URL is required.
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Update Offer"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+		<footer> </footer>
+</div>
+
+</body>
+</html>
