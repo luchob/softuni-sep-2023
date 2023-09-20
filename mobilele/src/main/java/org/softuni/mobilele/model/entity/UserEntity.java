@@ -4,13 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-public class UserEntity {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+@Table(name = "users")
+public class UserEntity extends BaseEntity{
 
   private String email;
 
@@ -21,15 +19,6 @@ public class UserEntity {
   private String lastName;
 
   private boolean active;
-
-  public Long getId() {
-    return id;
-  }
-
-  public UserEntity setId(Long id) {
-    this.id = id;
-    return this;
-  }
 
   public String getEmail() {
     return email;
