@@ -6,13 +6,14 @@ import org.softuni.model.User;
 import org.softuni.repository.InMemoryUserRepository;
 import org.softuni.repository.UserRepository;
 import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
-public abstract class UserServiceImpl implements UserService,
+public class UserServiceImpl implements UserService,
     BeanNameAware {
   private final UserRepository userRepository;
 
