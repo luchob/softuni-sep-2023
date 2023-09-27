@@ -1,6 +1,8 @@
 package org.softuni.mobilele.model.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
@@ -20,7 +22,9 @@ public class OfferEntity extends BaseEntity{
   @ManyToOne
   private ModelEntity model;
 
+  @Enumerated(EnumType.STRING)
   private EngineEnum engine;
+  @Enumerated(EnumType.STRING)
   private Transmission transmission;
 
   private String imageUrl;
