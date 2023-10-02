@@ -10,7 +10,7 @@ import java.sql.Types;
 import java.util.UUID;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.softuni.mobilele.model.enums.EngineEnum;
-import org.softuni.mobilele.model.enums.Transmission;
+import org.softuni.mobilele.model.enums.TransmissionEnum;
 
 @Entity
 @Table(name = "offers")
@@ -25,7 +25,7 @@ public class OfferEntity extends BaseEntity{
   @Enumerated(EnumType.STRING)
   private EngineEnum engine;
   @Enumerated(EnumType.STRING)
-  private Transmission transmission;
+  private TransmissionEnum transmission;
 
   private String imageUrl;
 
@@ -62,11 +62,11 @@ public class OfferEntity extends BaseEntity{
     return this;
   }
 
-  public Transmission getTransmission() {
+  public TransmissionEnum getTransmission() {
     return transmission;
   }
 
-  public OfferEntity setTransmission(Transmission transmission) {
+  public OfferEntity setTransmission(TransmissionEnum transmission) {
     this.transmission = transmission;
     return this;
   }

@@ -6,10 +6,18 @@ spring:
     password: ${MYSQL_PASSWORD:}
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: update
   sql:
     init:
-      mode: never
+      mode: always
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
 
 default.admin.pass: ${DEFAULT_ADMIN_PASS:topsecret}
+logging:
+  level:
+    org.springframework: DEBUG

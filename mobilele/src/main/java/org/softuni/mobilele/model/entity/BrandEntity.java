@@ -10,6 +10,7 @@ public class BrandEntity extends BaseEntity {
   @Column(unique = true, nullable = false)
   private String brand;
 
+  // TODO: rename to 'name' and make it uniques
   public String getBrand() {
     return brand;
   }
