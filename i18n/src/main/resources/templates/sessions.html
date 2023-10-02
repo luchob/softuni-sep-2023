@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<form th:method="post"
+      th:action="@{/session}">
+  Language:
+  <select
+      id="lang"
+      name="lang">
+    <option value="en" th:selected="${lang == 'en'}">English</option>
+    <option value="bg" th:selected="${lang == 'bg'}">Bulgarian</option>
+    <option value="de" th:selected="${lang == 'de'}">German</option>
+    <option value="ua" th:selected="${lang == 'ua'}">Ukrainian</option>
+  </select>
+
+  <input type="submit" value="Submit"/>
+</form>
+
+<br/>
+-----
+<br/>
+<th:block th:text="${#session.getAttribute('name')}">
+
+</th:block>
+
+
+</body>
+</html>
