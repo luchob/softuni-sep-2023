@@ -9,8 +9,11 @@
 </head>
 <body>
 <form th:method="post"
-      th:action="@{/session}">
-  Language:
+      th:action="@{/cookie}">
+
+  <label for="lang">
+    Language:
+  </label>
   <select
       id="lang"
       name="lang">
@@ -20,16 +23,7 @@
     <option value="ua" th:selected="${lang == 'ua'}">Ukrainian</option>
   </select>
 
-  <input type="submit" value="Submit"/>
+    <input type="submit" value="Submit"/>
 </form>
-
-<br/>
------
-<br/>
-<th:block th:text="${#session.getAttribute('name')}">
-
-</th:block>
-
-
 </body>
 </html>

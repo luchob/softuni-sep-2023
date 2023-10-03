@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LangControllerCookies {
 
 
-  @GetMapping("/cookies")
-  public String langCookies(
+  @GetMapping("/cookie")
+  public String getLang(
       @CookieValue(
           value = "lang",
           defaultValue = "bg") String lang,
@@ -22,17 +22,17 @@ public class LangControllerCookies {
 
     model.addAttribute("lang", lang);
 
-    return "lang";
+    return "lang-view-cookie";
   }
 
-  @PostMapping("/cookies")
-  public String langCookies(@RequestParam("lang") String lang,
+  @PostMapping("/cookie")
+  public String postLang(@RequestParam("lang") String lang,
       HttpServletResponse response) {
 
     Cookie cookie = new Cookie("lang", lang);
     response.addCookie(cookie);
 
-    return "redirect:/cookies";
+    return "redirect:/cookie";
   }
 
 }
