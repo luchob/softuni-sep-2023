@@ -3,7 +3,6 @@ package bg.softuni.i18n.web;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LangControllerSessions {
 
   @GetMapping("/session")
-  public String langCookies(
+  public String getLang(
       HttpSession session,
       Model model) {
 
@@ -25,11 +24,11 @@ public class LangControllerSessions {
 
     model.addAttribute("lang", lang);
 
-    return "sessions";
+    return "lang-view-session";
   }
 
   @PostMapping("/session")
-  public String langCookies(@RequestParam("lang") String lang,
+  public String postLang(@RequestParam("lang") String lang,
       HttpSession session) {
 
     session.setAttribute("lang", lang);
