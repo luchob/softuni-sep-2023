@@ -3,7 +3,7 @@ VALUES
     (1, 1, 'admin@example.com', 'Admin', 'Adminov', '95c1933b8ffe84f085f2839899d1673260be58dbd9c2c787ac35515805502c996417596dae9a92880aaa50a046fc7151');
 
 
-INSERT INTO `brands` (`id`, `brand`)
+INSERT INTO `brands` (`id`, `name`)
 VALUES
     (1, 'Toyota'),
     (2, 'Ford');

@@ -11,7 +11,7 @@ spring:
       ddl-auto: update
   sql:
     init:
-      mode: always
+      mode: never
   mvc:
     hiddenmethod:
       filter:
@@ -20,4 +20,5 @@ spring:
 default.admin.pass: ${DEFAULT_ADMIN_PASS:topsecret}
 logging:
   level:
-    org.springframework: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE

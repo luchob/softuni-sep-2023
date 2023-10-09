@@ -45,4 +45,13 @@ public class ModelEntity extends BaseEntity {
     this.brand = brand;
     return this;
   }
+
+  @Override
+  public String toString() {
+    return "ModelEntity{" +
+        "name='" + name + '\'' +
+        ", category=" + category +
+        ", brand=" + brand +
+        '}';
+  }
 }
