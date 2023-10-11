@@ -2,34 +2,29 @@ package org.softuni.mobilele.web;
 
 
 import jakarta.validation.Valid;
-import java.util.UUID;
 import org.softuni.mobilele.model.dto.CreateOfferDTO;
 import org.softuni.mobilele.model.enums.EngineEnum;
-import org.softuni.mobilele.service.BrandService;
+import org.softuni.mobilele.service.ModelService;
 import org.softuni.mobilele.service.OfferService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/offer")
 public class OfferController {
 
   private final OfferService offerService;
-  private final BrandService brandService;
+  private final ModelService modelService;
 
   public OfferController(OfferService offerService,
-      BrandService brandService) {
+                         ModelService modelService) {
     this.offerService = offerService;
-    this.brandService = brandService;
+    this.modelService = modelService;
   }
 
   @ModelAttribute("engines")
@@ -44,7 +39,7 @@ public class OfferController {
       model.addAttribute("createOfferDTO", CreateOfferDTO.empty());
     }
 
-    model.addAttribute("brands", brandService.getAllBrands());
+    model.addAttribute("brandDTOs", modelService.getAllGroupedByBrand());
 
     return "offer-add";
   }
