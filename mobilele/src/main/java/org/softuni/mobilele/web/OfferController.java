@@ -4,8 +4,9 @@ package org.softuni.mobilele.web;
 import jakarta.validation.Valid;
 import org.softuni.mobilele.model.dto.CreateOfferDTO;
 import org.softuni.mobilele.model.enums.EngineEnum;
+import org.softuni.mobilele.model.enums.TransmissionEnum;
 import org.softuni.mobilele.service.ModelService;
-import org.softuni.mobilele.service.OfferService;
+import org.softuni.mobilele.service.OfferProcessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,18 +19,24 @@ import java.util.UUID;
 @RequestMapping("/offer")
 public class OfferController {
 
-  private final OfferService offerService;
+  private final OfferProcessor offerProcessor;
   private final ModelService modelService;
 
-  public OfferController(OfferService offerService,
+  public OfferController(OfferProcessor offerProcessor,
                          ModelService modelService) {
-    this.offerService = offerService;
+
+    this.offerProcessor = offerProcessor;
     this.modelService = modelService;
   }
 
   @ModelAttribute("engines")
   public EngineEnum[] engines() {
     return EngineEnum.values();
+  }
+
+  @ModelAttribute("transmissions")
+  public TransmissionEnum[] transmissions() {
+    return TransmissionEnum.values();
   }
 
   @GetMapping("/add")
@@ -57,7 +64,7 @@ public class OfferController {
     }
 
 
-    UUID newOfferUUID = offerService.createOffer(createOfferDTO);
+    UUID newOfferUUID = offerProcessor.createOffer(createOfferDTO);
 
     return "redirect:/offer/" + newOfferUUID;
   }

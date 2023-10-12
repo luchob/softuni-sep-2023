@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/head}">
 </head>
@@ -18,48 +19,51 @@
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="row">
 
+            <!-- brand -->
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-center text-white font-weight-bold" for="brandId">Brand</label>
+                <input list="vehicleBrands"
+                       id="brandId"
+                       th:field="*{brand}"
+                       th:errorclass="is-invalid"
+                       class="form-control"
+                       placeholder="- Enter a brand -">
+                <datalist id="vehicleBrands">
+                    <option
+                            th:each="brandDTO : ${brandDTOs}"
+                            th:text="${brandDTO.name()}"
+                            th:value="${brandDTO.name()}">
+                        Brand
+                    </option>
+
+                </datalist>
+
+                <p class="invalid-feedback errors alert alert-danger"
+                th:errors="*{brand}">
+                    Vechicle brand is required.
+                </p>
+            </div>
+            <!-- EO: brand -->
+
             <!-- model -->
             <div class="form-group col-md-6 mb-3">
                 <label class="text-center text-white font-weight-bold" for="modelId">Model</label>
-                <select id="modelId"
-                        th:name="modelId"
-                        th:errorclass="is-invalid"
-                        class="form-control">
-                    <option value="">- Select a model -</option>
-                    <optgroup
-                        th:each="brand: ${brands}"
-                        th:label="${brand.name()}">
 
-                        <option
-                            th:each="model : ${brand.models()}"
-                            th:text="${model.name}"
-                            th:value="${model.id}"
-                            th:selected="*{modelId} == ${model.id}">
-                                Model
-                        </option>
+                <input list="vehicleModels"
+                       id="modelId"
+                       th:field="*{model}"
+                       th:errorclass="is-invalid"
+                       class="form-control"
+                       placeholder="- Enter a model -">
+                <datalist id="vehicleModels"></datalist>
 
-                    </optgroup>
-                </select>
-                <p class="invalid-feedback errors alert alert-danger">
+                <p class="invalid-feedback errors alert alert-danger"
+                   th:errors="*{model}">
                     Vechicle model is required.
                 </p>
             </div>
             <!-- EO: model -->
 
-            <!-- Price -->
-            <div class="form-group col-md-6 mb-3">
-                <label for="price" class="text-white font-weight-bold">Price</label>
-                <input id="price"
-                       th:field="*{price}"
-                       th:errorclass="is-invalid"
-                       type="number"
-                       class="form-control"
-                       placeholder="Suggested price"/>
-                <p class="invalid-feedback errors alert alert-danger">
-                    Suggested price is required.
-                </p>
-            </div>
-            <!-- EO: Price -->
         </div>
 
 
@@ -78,7 +82,8 @@
                             th:value="${e}">
                     </option>
                 </select>
-                <p class="invalid-feedback errors alert alert-danger">
+                <p class="invalid-feedback errors alert alert-danger"
+                   th:errors="*{engine}">
                     Engine type is required.
                 </p>
             </div>
@@ -88,18 +93,19 @@
             <div class="form-group col-md-6 mb-3">
                 <label class="text-center text-white font-weight-bold" for="transmission">Transmission</label>
                 <select
-                    id="transmission"
-                    th:field="*{transmission}"
-                    th:errorclass="is-invalid"
-                    class="form-control">
+                        id="transmission"
+                        th:field="*{transmission}"
+                        th:errorclass="is-invalid"
+                        class="form-control">
                     <option value="">- Select transmission type -</option>
-                    <option th:each="t : ${T(org.softuni.mobilele.model.enums.TransmissionEnum).values()}"
-                        th:text="${t}"
-                        th:value="${t}"
-                        th:selected="${t} == *{transmission}">
+                    <option th:each="t : ${transmissions}"
+                            th:text="${t}"
+                            th:value="${t}"
+                            th:selected="${t} == *{transmission}">
                     </option>
                 </select>
-                <p class="invalid-feedback  errors alert alert-danger">
+                <p class="invalid-feedback errors alert alert-danger"
+                   th:errors="*{transmission}">
                     Transmission type is required.
                 </p>
             </div>
@@ -110,18 +116,15 @@
             <div class="form-group col-md-6 mb-3">
                 <label for="year" class="text-white font-weight-bold">Year</label>
                 <input id="year"
-                       th:errorclass="is-invalid"
                        th:field="*{year}"
+                       th:errorclass="is-invalid"
                        type="number"
                        class="form-control"
                        placeholder="Manufacturing year"/>
                 <p th:if="${#fields.hasErrors('year')}"
-                   class="errors alert alert-danger"
+                   class="invalid-feedback errors alert alert-danger"
                    th:errors="*{year}">
                 </p>
-<!--                <p class="invalid-feedback errors alert alert-danger">-->
-<!--                    Manufacturing year is required.-->
-<!--                </p>-->
             </div>
             <!-- EO: Year -->
 
@@ -129,12 +132,13 @@
             <div class="form-group col-md-6 mb-3">
                 <label for="mileage" class="text-white font-weight-bold">Mileage</label>
                 <input id="mileage"
-                       th:errorclass="is-invalid"
                        th:field="*{mileage}"
+                       th:errorclass="is-invalid"
                        type="number"
                        class="form-control"
                        placeholder="Mileage in kilometers"/>
-                <p class="invalid-feedback errors alert alert-danger">
+                <p class="invalid-feedback errors alert alert-danger"
+                   th:errors="*{mileage}">
                     Mileage in kilometers is required.
                 </p>
             </div>
@@ -153,7 +157,8 @@
                       rows="3"
                       placeholder="Description">
             </textarea>
-            <p class="invalid-feedback errors alert alert-danger">
+            <p class="invalid-feedback errors alert alert-danger"
+               th:errors="*{description}">
                 Description is required.
             </p>
         </div>
@@ -167,11 +172,29 @@
                    th:errorclass="is-invalid"
                    type="url" class="form-control"
                    placeholder="Put vehicle image URL here">
-            <p class="invalid-feedback errors alert alert-danger">
+            <p class="invalid-feedback errors alert alert-danger" th:errors="*{imageUrl}">
                 Vehicle image URL is required.
             </p>
         </div>
         <!-- EO: Image URL -->
+
+        <div class="row">
+            <!-- Price -->
+            <div class="form-group col-md-6 mb-3">
+                <label for="price" class="text-white font-weight-bold">Price</label>
+                <input id="price"
+                       th:field="*{price}"
+                       th:errorclass="is-invalid"
+                       type="number"
+                       class="form-control"
+                       placeholder="Suggested price"/>
+                <p class=" invalid-feedback errors alert alert-danger"
+                   th:errors="*{price}">
+                    Suggested price is required.
+                </p>
+            </div>
+            <!-- EO: Price -->
+        </div>
 
         <div class="row">
             <div class="col col-md-4">
@@ -184,8 +207,8 @@
 </div>
 
 <div>
-    <footer> </footer>
+    <footer></footer>
 </div>
-
+<script type = "text/javascript" src = "/js/codename-ferrari.js"></script>
 </body>
 </html>

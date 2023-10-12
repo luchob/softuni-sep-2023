@@ -1,20 +1,17 @@
 package org.softuni.mobilele.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import java.math.BigDecimal;
-import java.sql.Types;
-import java.util.UUID;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.softuni.mobilele.model.enums.EngineEnum;
 import org.softuni.mobilele.model.enums.TransmissionEnum;
+
+import java.math.BigDecimal;
+import java.sql.Types;
+import java.util.UUID;
 
 @Entity
 @Table(name = "offers")
@@ -37,6 +34,7 @@ public class OfferEntity extends BaseEntity{
   private TransmissionEnum transmission;
 
   @NotEmpty
+  @JdbcTypeCode(Types.LONGVARCHAR)
   private String imageUrl;
 
   @Positive

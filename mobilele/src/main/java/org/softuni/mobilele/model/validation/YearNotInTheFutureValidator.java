@@ -1,8 +1,8 @@
 package org.softuni.mobilele.model.validation;
 
-import jakarta.validation.Constraint;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+
 import java.time.Year;
 
 public class YearNotInTheFutureValidator implements ConstraintValidator<YearNotInTheFuture, Number> {
