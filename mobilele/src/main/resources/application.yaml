@@ -25,3 +25,9 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
+
+open.exchange.rates:
+  app_id: ${EXCHANGE_RATE_APP_ID:}
+  symbols: EUR,BGN
+  host: "openexchangerates.org"
+  path: "/api/latest.json"
