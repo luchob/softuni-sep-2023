@@ -29,7 +29,7 @@ logging:
     org.springframework.web.client: DEBUG
 
 open.exchange.rates:
-  app_id: ${EXCHANGE_RATE_APP_ID:a06e7a522fed4468b7fd59938e204380}
+  app_id: ${EXCHANGE_RATE_APP_ID:test}
   symbols: EUR,BGN
   host: "openexchangerates.org"
   path: "/api/latest.json"
