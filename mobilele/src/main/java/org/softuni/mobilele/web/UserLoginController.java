@@ -2,8 +2,11 @@ package org.softuni.mobilele.web;
 
 import org.softuni.mobilele.model.dto.UserLoginDTO;
 import org.softuni.mobilele.service.UserService;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -20,18 +23,9 @@ public class UserLoginController {
     return "auth-login";
   }
 
-  @GetMapping("/users/logout")
-  public String logout() {
-
-    userService.logoutUser();
-
-    return "index";
-  }
-
-  @PostMapping("/users/login")
-  public String login(UserLoginDTO userLoginDTO) {
-    boolean loginSuccessful = userService.loginUser(userLoginDTO);
-
-    return loginSuccessful ? "index" : "auth-login";
+  @PostMapping("/users/login-error")
+  public String loginError(@ModelAttribute("email") String email,
+      @ModelAttribute("remember-me") String rememberMe) {
+    return "auth-login";
   }
 }

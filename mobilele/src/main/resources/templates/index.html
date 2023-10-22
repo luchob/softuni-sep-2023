@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="~{fragments/head}">
 </head>
@@ -12,8 +12,14 @@
 
 <div class="container-fluid">
     <h5 class="text-center text-white mt-5">Welcome to MobiLeLeLe,
-        <th:block th:if="${@currentUser.isLogged()}" th:text="${@currentUser.getFullName()}"></th:block>
-        <th:block th:unless="${@currentUser.isLogged()}">Anonymous</th:block>
+        <span
+            sec:authorize="isAuthenticated()"
+            th:text="${#authentication.name}">
+        </span>
+
+        <span sec:authorize="!isAuthenticated()">
+            Anonymous
+        </span>
     </h5>
 </div>
 

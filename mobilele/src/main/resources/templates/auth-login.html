@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head}">
 </head>
 <body>
@@ -9,7 +9,9 @@
 
 <div class="container">
     <h2 class="text-center text-white">Login</h2>
-    <form method="POST" 
+    <form
+        th:action="@{/users/login}"
+        th:method="POST"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="form-group">
             <label for="email" class="text-white font-weight-bold">Username</label>
@@ -25,6 +27,14 @@
                    max="20" class="form-control"
                    placeholder="Password"/>
 
+        </div>
+
+        <div class="form-group">
+            <label for="remember-me" class="text-white font-weight-bold">Remember me</label>
+            <input id="remember-me"
+                    name="remember-me" type="checkbox"
+                    class="form-control"
+                    placeholder="Password"/>
         </div>
         
         <p class="errors alert alert-danger">
