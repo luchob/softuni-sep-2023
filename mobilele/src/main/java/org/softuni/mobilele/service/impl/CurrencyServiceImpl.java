@@ -34,6 +34,17 @@ public class CurrencyServiceImpl implements CurrencyService {
   private Optional<BigDecimal> getExchangeRate(ExchangeRatesDTO exchangeRatesDTO,
       String from, String to) {
 
+//    {
+//      "disclaimer": "Usage subject to terms: https://openexchangerates.org/terms",
+//        "license": "https://openexchangerates.org/license",
+//        "timestamp": 1696953600,
+//        "base": "USD",
+//        "rates": {
+//          "BGN": 1.845,
+//          "EUR": 0.941894
+//    }
+//    }
+
     if (Objects.equals(to, from)) {
       return Optional.of(BigDecimal.ONE);
     }
