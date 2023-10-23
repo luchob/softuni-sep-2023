@@ -47,18 +47,13 @@ public class BookServiceImpl implements BookService {
   @Override
   public Long createBook(BookDTO bookDTO) {
 
-    AuthorEntity author = authorRepository
-        .findByName(bookDTO.getAuthor().getName())
-        .orElse(null);
-
-    if (author == null) {
-      author = new AuthorEntity()
-          .setName(bookDTO.getAuthor().getName());
-      author = authorRepository.save(author);
-    }
+    Optional<AuthorEntity> authorOpt = authorRepository
+        .findByName(bookDTO.getAuthor().getName());
 
     BookEntity newBook = new BookEntity()
-        .setAuthor(author)
+        .setAuthor(authorOpt.orElseGet(() ->
+            authorRepository.save(new AuthorEntity()
+                .setName(bookDTO.getAuthor().getName()))))
         .setIsbn(bookDTO.getIsbn())
         .setTitle(bookDTO.getTitle());
 
