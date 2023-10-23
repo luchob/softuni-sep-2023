@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-//@Component
+@Component
 public class Test implements CommandLineRunner {
 
   private final ObjectMapper objectMapper;
@@ -39,22 +39,22 @@ public class Test implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-//    String json = """
-//        {
-//          "disclaimer": "Usage subject to terms: https://openexchangerates.org/terms",
-//          "license": "https://openexchangerates.org/license",
-//          "timestamp": 1696953600,
-//          "base": "USD",
-//          "rates": {
-//            "BGN": 1.845,
-//            "EUR": 0.941894
-//          }
-//        }
-//        """;
-//
-//    ExchangeRatesDTO exchangeRatesDTO = objectMapper.readValue(json, ExchangeRatesDTO.class);
-//
-//    currencyService.processExRates(exchangeRatesDTO);
+    String json = """
+        {
+          "disclaimer": "Usage subject to terms: https://openexchangerates.org/terms",
+          "license": "https://openexchangerates.org/license",
+          "timestamp": 1696953600,
+          "base": "USD",
+          "rates": {
+            "BGN": 1.845,
+            "EUR": 0.941894
+          }
+        }
+        """;
+
+    ExchangeRatesDTO exchangeRatesDTO = objectMapper.readValue(json, ExchangeRatesDTO.class);
+
+    currencyService.processExRates(exchangeRatesDTO);
 
 //    Mono<ExchangeRatesDTO> response = webClient
 //        .get()
@@ -78,23 +78,23 @@ public class Test implements CommandLineRunner {
 //
 //    ExchangeRatesDTO exchangeRatesDTO = response.block();
 
-    String openExchangeRateURL =
-        new StringBuilder()
-            .append("https://")
-                .append(openExchangeRatesConfig.getHost())
-                .append(openExchangeRatesConfig.getPath())
-                .append("?app_id={app_id}")
-                .append("&symbols={symbols}")
-              .toString();
-
-    Map<String, String> requestParams = Map.of(
-        "app_id", openExchangeRatesConfig.getAppId(),
-        "symbols", String.join(",", openExchangeRatesConfig.getSymbols())
-    );
-
-    var exchangeRatesDTO = restTemplate.
-        getForObject(openExchangeRateURL, ExchangeRatesDTO.class, requestParams);
-
-    System.out.println(exchangeRatesDTO);
+//    String openExchangeRateURL =
+//        new StringBuilder()
+//            .append("https://")
+//                .append(openExchangeRatesConfig.getHost())
+//                .append(openExchangeRatesConfig.getPath())
+//                .append("?app_id={app_id}")
+//                .append("&symbols={symbols}")
+//              .toString();
+//
+//    Map<String, String> requestParams = Map.of(
+//        "app_id", openExchangeRatesConfig.getAppId(),
+//        "symbols", String.join(",", openExchangeRatesConfig.getSymbols())
+//    );
+//
+//    var exchangeRatesDTO = restTemplate.
+//        getForObject(openExchangeRateURL, ExchangeRatesDTO.class, requestParams);
+//
+//    System.out.println(exchangeRatesDTO);
   }
 }
