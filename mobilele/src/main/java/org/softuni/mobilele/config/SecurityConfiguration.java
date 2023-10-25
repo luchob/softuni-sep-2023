@@ -1,7 +1,9 @@
 package org.softuni.mobilele.config;
 
+import org.softuni.mobilele.model.enums.UserRoleEnum;
 import org.softuni.mobilele.repository.UserRepository;
 import org.softuni.mobilele.service.impl.MobileleUserDetailsService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +16,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfiguration {
 
+  private final String rememberMeKey;
+
+  public SecurityConfiguration(@Value("${mobilele.remember.me.key}")
+    String rememberMeKey) {
+    this.rememberMeKey = rememberMeKey;
+  }
+
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
     return httpSecurity.authorizeHttpRequests(
@@ -24,6 +33,7 @@ public class SecurityConfiguration {
             // Allow anyone to see the home page, the registration page and the login form
             .requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll()
             .requestMatchers("/offers/all").permitAll()
+            .requestMatchers("/brands").hasRole(UserRoleEnum.ADMIN.name())
             // all other requests are authenticated.
             .anyRequest().authenticated()
     ).formLogin(
@@ -47,6 +57,13 @@ public class SecurityConfiguration {
               .logoutSuccessUrl("/")
               // invalidate the HTTP session
               .invalidateHttpSession(true);
+        }
+    ).rememberMe(
+        rememberMe -> {
+          rememberMe
+              .key(rememberMeKey)
+              .rememberMeParameter("rememberme")
+              .rememberMeCookieName("rememberme");
         }
     ).build();
   }
