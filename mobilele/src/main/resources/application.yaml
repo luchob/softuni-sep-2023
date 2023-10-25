@@ -14,7 +14,7 @@ spring:
       ddl-auto: update
   sql:
     init:
-      mode: never
+      mode: always
   mvc:
     hiddenmethod:
       filter:
@@ -25,6 +25,7 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
+    org.springframework.security: TRACE
 
 
 open.exchange.rates:

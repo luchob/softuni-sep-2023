@@ -2,10 +2,16 @@ package org.softuni.mobilele.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -13,6 +19,13 @@ public class UserEntity extends BaseEntity{
 
   @Column(unique = true)
   private String email;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(
+      name = "users_roles",
+      joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "role_id"))
+  private List<UserRoleEntity> roles = new ArrayList<>();
 
   private String password;
 
@@ -64,6 +77,15 @@ public class UserEntity extends BaseEntity{
 
   public UserEntity setActive(boolean active) {
     this.active = active;
+    return this;
+  }
+
+  public List<UserRoleEntity> getRoles() {
+    return roles;
+  }
+
+  public UserEntity setRoles(List<UserRoleEntity> roles) {
+    this.roles = roles;
     return this;
   }
 }

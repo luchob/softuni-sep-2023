@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 </head>
 
@@ -8,7 +9,7 @@
   <nav
       th:fragment="navbar"
       class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
-    <a class="navbar-brand" href="/"><img alt="car picture" src="/img/car.png" class="logo"></a>
+    <a class="navbar-brand" href="/"><img alt="car picture" src="/images/car.png" class="logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -16,11 +17,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto col-12 justify-content-between">
-        <li class="nav-item"
-        >
-          <a class="nav-link" href="/brands/all">All Brands</a>
-        </li>
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="isAuthenticated()">
           <a class="nav-link" href="/offer/add">Add Offer</a>
         </li>
         <li class="nav-item">
@@ -38,19 +35,22 @@
             <a class="dropdown-item" href="/">Something else here</a>
           </div>
         </li>
-        <li class="nav-item" th:if="${@currentUser.isLogged()}">
+        <li class="nav-item" sec:authorize="isAuthenticated()">
           <div class="form-inline my-2 my-lg-0 border px-3">
             <div class="logged-user">
-              Welcome, <th:block th:text="${@currentUser.getFullName()}">Anonymous</th:block>!
+              Welcome, <th:block sec:authentication="name"></th:block>!
             </div>
-            <a class="nav-link" href="/users/logout">Logout</a>
+            <form th:method="post"
+                  th:action="@{/users/logout}">
+              <input type="submit" class="btn btn-link" value="Logout"/>
+            </form>
           </div>
         </li>
 
-        <li th:unless="${@currentUser.isLogged()}" class="nav-item">
+        <li class="nav-item" sec:authorize="!isAuthenticated()">
           <a class="nav-link" href="/users/register">Register</a>
         </li>
-        <li th:unless="${@currentUser.isLogged()}" class="nav-item">
+        <li class="nav-item" sec:authorize="!isAuthenticated()">
           <a class="nav-link" href="/users/login">Login</a>
         </li>
 
