@@ -7,6 +7,7 @@ import org.softuni.mobilele.model.dto.CreateOfferDTO;
 import org.softuni.mobilele.model.enums.EngineEnum;
 import org.softuni.mobilele.service.BrandService;
 import org.softuni.mobilele.service.OfferService;
+import org.softuni.mobilele.service.exception.ObjectNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -69,6 +70,6 @@ public class OfferController {
 
   @GetMapping("/{uuid}")
   public String details(@PathVariable("uuid") UUID uuid) {
-    return "details";
+    throw new ObjectNotFoundException("Offer not found.", uuid.toString());
   }
 }

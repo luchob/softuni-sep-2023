@@ -57,3 +57,9 @@ form.main-form {
 .logged-user {
      color: white;
 }
+
+.container-center {
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+}

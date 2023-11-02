@@ -38,3 +38,7 @@ open.exchange.rates:
   app_id: ${APP_ID:test}
   symbols: EUR,BGN
   enabled: false
+
+server:
+  error:
+    include-exception: true
