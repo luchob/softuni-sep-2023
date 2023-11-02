@@ -40,7 +40,7 @@ public class OfferEntity extends BaseEntity{
   private String imageUrl;
 
   @Positive
-  private long mileage;
+  private int mileage;
 
   @NotNull
   private BigDecimal price;
@@ -93,11 +93,11 @@ public class OfferEntity extends BaseEntity{
     return this;
   }
 
-  public long getMileage() {
+  public int getMileage() {
     return mileage;
   }
 
-  public OfferEntity setMileage(long mileage) {
+  public OfferEntity setMileage(int mileage) {
     this.mileage = mileage;
     return this;
   }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="~{fragments/head}">
 </head>
@@ -7,85 +8,51 @@
 <body>
 
 <div>
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
-        <a class="navbar-brand" href="/"><img alt="car picture" src="/images/car.png" class="logo"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto col-12 justify-content-between">
-                <li class="nav-item"
-                    >
-                    <a class="nav-link" href="/brands/all">All Brands</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/offers/add">Add Offer</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/offers/all">All Offers</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Admin
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/">Action</a>
-                        <a class="dropdown-item" href="/">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <div class="form-inline my-2 my-lg-0 border px-3">
-                        <div class="logged-user"
-                             text="Welcome, Gosho"></div>
-                        <a class="nav-link" href="/users/logout">Logout</a>
-                    </div>
-                </li>
-                
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/login">Login</a>
-                    </li>
-                
-            </ul>
-        </div>
-    </nav>
+    <nav th:replace="~{fragments/navbar}"></nav>
 </div>
-
 
 <div class="container-fluid">
     <h2 class="text-center text-white mt-5">Details</h2>
-    <div class="offers row mx-auto d-flex flex-row justify-content-center">
+    <div th:object="${offer}" class="offers row mx-auto d-flex flex-row justify-content-center">
         <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0" >
 
             <div class="card-body pb-1">
-                <h5 class="card-title">
-                    Offer year Brand name Model name</h5>
+                <h5 class="card-title" th:text="*{summary()}"></h5>
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span>• Mileage</span></div>
-                    <div class="card-text"><span>• Price</span></div>
-                    <div class="card-text"><span>• Engine type</span></div>
-                    <div class="card-text"><span>• Transmission type</span></div>
-                    <div class="card-text"><span>• Offer created</span></div>
-                    <div class="card-text"><span>• Offer modified</span></div>
-                    <div class="card-text"><span>• Seller - First and Last name</span></div>
+
+                    <div class="card-text">
+                        <span>• Mileage</span>
+                        <th:block th:text="*{mileage}">12345</th:block>
+                    </div>
+                    <div class="card-text">
+                        <span>• Price</span>
+                        <th:block th:text="*{price}">123</th:block>
+                    </div>
+                    <div class="card-text">
+                        <span>• Engine type</span>
+                        <th:block th:text="*{engine}">PETROL</th:block>
+                    </div>
+                    <div class="card-text">
+                        <span>• Transmission type</span>
+                        <th:block th:text="*{transmission}">TRANSMISSION</th:block>
+                    </div>
+
+                    <div class="card-text"><span>• Offer created - TODO</span></div>
+                    <div class="card-text"><span>• Offer modified - TODO</span></div>
+                    <div class="card-text"><span>• Seller - TOD</span></div>
                 </li>
             </ul>
-            <div class="card-body">
-                <a class="card-link" href="/">Update</a>
-                <a class="card-link" href="/">Delete</a>
+            <div class="card-body" sec:authorize="isAuthenticated()">
+                <form th:method="delete"
+                      th:action="@{/offer/{offerUUID}(offerUUID=*{id})}">
+                    <input type="submit" value="Delete" class="link card-link"/>
+                </form>
             </div>
         </div>
         <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
-            <img src="/" class="card-img-top"  alt="Car image">
+            <img th:src="*{imageUrl}" class="card-img-top"  alt="Car image">
         </div>
     </div>
 </div>
