@@ -12,12 +12,14 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.softuni.mobilele.model.dto.CreateOfferDTO;
 import org.softuni.mobilele.model.dto.OfferDetailDTO;
 import org.softuni.mobilele.model.dto.OfferSummaryDTO;
+import org.softuni.mobilele.model.dto.SearchOfferDTO;
 import org.softuni.mobilele.model.entity.ModelEntity;
 import org.softuni.mobilele.model.entity.OfferEntity;
 import org.softuni.mobilele.model.enums.EngineEnum;
 import org.softuni.mobilele.model.enums.TransmissionEnum;
 import org.softuni.mobilele.repository.ModelRepository;
 import org.softuni.mobilele.repository.OfferRepository;
+import org.softuni.mobilele.repository.OfferSpecification;
 import org.softuni.mobilele.service.OfferService;
 import org.softuni.mobilele.service.exception.ObjectNotFoundException;
 import org.springframework.data.domain.Page;
@@ -51,9 +53,13 @@ public class OfferServiceImpl implements OfferService {
   }
 
   @Override
-  public Page<OfferSummaryDTO> getAllOffers(Pageable pageable) {
+  public Page<OfferSummaryDTO> getAllOffers(SearchOfferDTO searchOfferDTO,
+      Pageable pageable) {
+
+    OfferSpecification offerSpec = new OfferSpecification(searchOfferDTO);
+
     return offerRepository
-        .findAll(pageable)
+        .findAll(offerSpec, pageable)
         .map(OfferServiceImpl::mapAsSummary);
   }
 
