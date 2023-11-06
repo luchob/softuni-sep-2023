@@ -38,3 +38,11 @@ open.exchange.rates:
   app_id: ${APP_ID:test}
   symbols: EUR,BGN
   enabled: false
+
+
+mail:
+  mobilele: "mobilele@example.com"
+  host: localhost
+  port: 1025
+  username: ${MAIL_USER:softuni}
+  password: ${MAIL_PASSWORD:softuni}

@@ -17,4 +17,8 @@ public record UserRegistrationDTO(@NotEmpty String firstName,
                                   String password,
                                   String confirmPassword) {
 
+  public String fullName() {
+    return firstName + " " + lastName;
+  }
+
 }
