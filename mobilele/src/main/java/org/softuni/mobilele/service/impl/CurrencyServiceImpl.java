@@ -6,10 +6,13 @@ import java.util.Objects;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.softuni.mobilele.model.dto.ConvertRequestDTO;
 import org.softuni.mobilele.model.dto.ExchangeRatesDTO;
+import org.softuni.mobilele.model.dto.MoneyDTO;
 import org.softuni.mobilele.model.entity.ExchangeRateEntity;
 import org.softuni.mobilele.repository.ExchangeRateRepository;
 import org.softuni.mobilele.service.CurrencyService;
+import org.softuni.mobilele.service.exception.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -66,34 +69,47 @@ public class CurrencyServiceImpl implements CurrencyService {
 //          "EUR": 0.937668
 //    }
 
-      // e.g. USD -> USD
-      if (Objects.equals(from, to)) {
-        return Optional.of(BigDecimal.ONE);
-      }
-
-      if (from.equals(exchangeRatesDTO.base())) {
-        // e.g. USD -> BGN
-        if (exchangeRatesDTO.rates().containsKey(to)) {
-          return Optional.of(exchangeRatesDTO.rates().get(to));
-        }
-      } else if (Objects.equals(to, exchangeRatesDTO.base())){
-        // e.g. BGN -> USD
-        if (exchangeRatesDTO.rates().containsKey(from)) {
-          return Optional.of(BigDecimal.ONE.divide(
-              exchangeRatesDTO.rates().get(from),
-              3,
-              RoundingMode.DOWN
-          ));
-        }
-      } else if (exchangeRatesDTO.rates().containsKey(from) &&
-          exchangeRatesDTO.rates().containsKey(to)) {
-        return Optional.of(
-            exchangeRatesDTO.rates().get(to)
-                .divide(exchangeRatesDTO.rates().get(from),
-                    3, RoundingMode.DOWN)
-        );
-      }
-
-      return Optional.empty();
+    // e.g. USD -> USD
+    if (Objects.equals(from, to)) {
+      return Optional.of(BigDecimal.ONE);
     }
+
+    if (from.equals(exchangeRatesDTO.base())) {
+      // e.g. USD -> BGN
+      if (exchangeRatesDTO.rates().containsKey(to)) {
+        return Optional.of(exchangeRatesDTO.rates().get(to));
+      }
+    } else if (Objects.equals(to, exchangeRatesDTO.base())) {
+      // e.g. BGN -> USD
+      if (exchangeRatesDTO.rates().containsKey(from)) {
+        return Optional.of(BigDecimal.ONE.divide(
+            exchangeRatesDTO.rates().get(from),
+            3,
+            RoundingMode.DOWN
+        ));
+      }
+    } else if (exchangeRatesDTO.rates().containsKey(from) &&
+        exchangeRatesDTO.rates().containsKey(to)) {
+      return Optional.of(
+          exchangeRatesDTO.rates().get(to)
+              .divide(exchangeRatesDTO.rates().get(from),
+                  3, RoundingMode.DOWN)
+      );
+    }
+
+    return Optional.empty();
+  }
+
+  @Override
+  public MoneyDTO convertBase(ConvertRequestDTO convertRequestDTO) {
+    var exRate = exchangeRateRepository
+        .findById(convertRequestDTO.target())
+        .map(ExchangeRateEntity::getRate)
+        .orElseThrow(() -> new ObjectNotFoundException(
+            "Exchange rate for " + convertRequestDTO.target() + " not found!")
+        );
+
+    return new MoneyDTO(convertRequestDTO.target(),
+        convertRequestDTO.amount().multiply(exRate));
+  }
 }
