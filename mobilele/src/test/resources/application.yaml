@@ -1,0 +1,39 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: never
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+mobilele:
+  default.admin.pass: topsecret
+  remember.me.key: topsecret
+
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+
+
+open.exchange.rates:
+  schema: https
+  host: dummy
+  path: /api/latest.json
+  app_id: test
+  symbols: EUR,BGN
+  enabled: false
+
+
+mail:
+  mobilele: "mobilele@example.com"
+  host: localhost
+  port: 3333
+  username: test@example.com
+  password: topsecret
