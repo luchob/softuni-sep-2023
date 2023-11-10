@@ -1,6 +1,7 @@
 package org.softuni.mobilele.web;
 
 import org.softuni.mobilele.model.dto.OfferSummaryDTO;
+import org.softuni.mobilele.service.MonitoringService;
 import org.softuni.mobilele.service.OfferService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/offers")
 public class OffersController {
 
+  private final MonitoringService monitoringService;
   private final OfferService offerService;
 
-  public OffersController(OfferService offerService) {
+  public OffersController(MonitoringService monitoringService,
+      OfferService offerService) {
+    this.monitoringService = monitoringService;
     this.offerService = offerService;
   }
 
@@ -26,6 +30,8 @@ public class OffersController {
           size = 3,
           sort = "uuid"
       ) Pageable pageable) {
+
+    monitoringService.incOfferSearches();
 
     Page<OfferSummaryDTO> allOffers = offerService.getAllOffers(pageable);
 

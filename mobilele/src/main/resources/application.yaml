@@ -20,6 +20,15 @@ spring:
       filter:
         enabled: true
 
+management:
+  server:
+    port: 8081
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+
 mobilele:
   default.admin.pass: ${DEFAULT_ADMIN_PASS:topsecret}
   remember.me.key: ${REMEBER_ME_KEY:topsecret}
