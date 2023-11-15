@@ -36,6 +36,9 @@ public class OfferEntity extends BaseEntity{
   @Enumerated(EnumType.STRING)
   private TransmissionEnum transmission;
 
+  @ManyToOne
+  private UserEntity seller;
+
   @NotEmpty
   private String imageUrl;
 
@@ -126,6 +129,15 @@ public class OfferEntity extends BaseEntity{
 
   public OfferEntity setUuid(UUID uuid) {
     this.uuid = uuid;
+    return this;
+  }
+
+  public UserEntity getSeller() {
+    return seller;
+  }
+
+  public OfferEntity setSeller(UserEntity seller) {
+    this.seller = seller;
     return this;
   }
 }
