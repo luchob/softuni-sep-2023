@@ -6,17 +6,21 @@ import jakarta.persistence.ManyToOne;
 import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
 import java.sql.Types;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.softuni.mobilele.model.dto.CreateOfferDTO;
 import org.softuni.mobilele.model.dto.OfferDetailDTO;
 import org.softuni.mobilele.model.dto.OfferSummaryDTO;
+import org.softuni.mobilele.model.entity.BaseEntity;
 import org.softuni.mobilele.model.entity.ModelEntity;
 import org.softuni.mobilele.model.entity.OfferEntity;
 import org.softuni.mobilele.model.entity.UserEntity;
+import org.softuni.mobilele.model.entity.UserRoleEntity;
 import org.softuni.mobilele.model.enums.EngineEnum;
 import org.softuni.mobilele.model.enums.TransmissionEnum;
+import org.softuni.mobilele.model.enums.UserRoleEnum;
 import org.softuni.mobilele.repository.ModelRepository;
 import org.softuni.mobilele.repository.OfferRepository;
 import org.softuni.mobilele.repository.UserRepository;
@@ -77,10 +81,10 @@ public class OfferServiceImpl implements OfferService {
   }
 
   @Override
-  public Optional<OfferDetailDTO> getOfferDetail(UUID offerUUID) {
+  public Optional<OfferDetailDTO> getOfferDetail(UUID offerUUID, UserDetails viewer) {
     return offerRepository
         .findByUuid(offerUUID)
-        .map(OfferServiceImpl::mapAsDetails);
+        .map(o -> this.mapAsDetails(o, viewer));
   }
 
   @Override
@@ -89,8 +93,8 @@ public class OfferServiceImpl implements OfferService {
     offerRepository.deleteByUuid(offerUUID);
   }
 
-  private static OfferDetailDTO mapAsDetails(OfferEntity offerEntity) {
-    // TODO: reuse
+  private OfferDetailDTO mapAsDetails(OfferEntity offerEntity, UserDetails viewer) {
+
     return new OfferDetailDTO(
         offerEntity.getUuid().toString(),
         offerEntity.getModel().getBrand().getName(),
@@ -100,7 +104,38 @@ public class OfferServiceImpl implements OfferService {
         offerEntity.getPrice(),
         offerEntity.getEngine(),
         offerEntity.getTransmission(),
-        offerEntity.getImageUrl());
+        offerEntity.getImageUrl(),
+        offerEntity.getSeller().getFirstName(),
+        isOwner(offerEntity, viewer));
+  }
+
+  private boolean isOwner(OfferEntity offerEntity, UserDetails viewer) {
+    if (viewer == null) {
+      // anonymous users own no offers
+      return false;
+    }
+
+    UserEntity viewerEntity =
+        userRepository
+            .findByEmail(viewer.getUsername())
+            .orElseThrow(() -> new IllegalArgumentException("Unknown user..."));
+
+    if (isAdmin(viewerEntity)) {
+      // all admins own all offers
+      return true;
+    }
+
+    return Objects.equals(
+        offerEntity.getSeller().getId(),
+        viewerEntity.getId());
+  }
+
+  private boolean isAdmin(UserEntity userEntity) {
+    return userEntity
+        .getRoles()
+        .stream()
+        .map(UserRoleEntity::getRole)
+        .anyMatch(r -> UserRoleEnum.ADMIN == r);
   }
 
 
