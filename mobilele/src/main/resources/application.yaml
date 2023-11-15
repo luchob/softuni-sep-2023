@@ -46,3 +46,12 @@ mail:
   port: 1025
   username: ${MAIL_USER:softuni}
   password: ${MAIL_PASSWORD:softuni}
+
+management:
+  server:
+    port: 8081
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"

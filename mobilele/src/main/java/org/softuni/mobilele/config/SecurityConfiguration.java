@@ -4,6 +4,8 @@ import org.softuni.mobilele.model.enums.UserRoleEnum;
 import org.softuni.mobilele.repository.UserRepository;
 import org.softuni.mobilele.service.impl.MobileleUserDetailsService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest.EndpointRequestMatcher;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +33,8 @@ public class SecurityConfiguration {
         authorizeRequests -> authorizeRequests
             // All static resources which are situated in js, images, css are available for anyone
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+            // allow actuator endpoints
+            .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
             // Allow anyone to see the home page, the registration page and the login form
             .requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll()
             .requestMatchers("/offers/all").permitAll()
