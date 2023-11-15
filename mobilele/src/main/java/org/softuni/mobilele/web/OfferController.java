@@ -9,6 +9,7 @@ import org.softuni.mobilele.model.enums.EngineEnum;
 import org.softuni.mobilele.service.BrandService;
 import org.softuni.mobilele.service.OfferService;
 import org.softuni.mobilele.service.exception.ObjectNotFoundException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -86,8 +87,10 @@ public class OfferController {
     return "details";
   }
 
+  @PreAuthorize("@offerServiceImpl.isOwner(#uuid, #principal.username)")
   @DeleteMapping("/{uuid}")
-  public String delete(@PathVariable("uuid") UUID uuid) {
+  public String delete(@PathVariable("uuid") UUID uuid,
+      @AuthenticationPrincipal UserDetails principal) {
 
     offerService.deleteOffer(uuid);
 
