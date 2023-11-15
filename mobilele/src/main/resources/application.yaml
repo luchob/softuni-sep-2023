@@ -1,7 +1,7 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/mobilele?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: jdbc:mysql://mobilele1.mysql.database.azure.com:3306/mobilele?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:}
   jpa:
@@ -35,12 +35,13 @@ open.exchange.rates:
   schema: https
   host: openexchangerates.org
   path: /api/latest.json
-  app_id: ${APP_ID:test}
+  app_id: ${OPEN_EXCHANGE_RATE_APP_ID:test}
   symbols: EUR,BGN
   enabled: false
 
 
 mail:
+  enabled: ${MAIL_ENABLED:true}
   mobilele: "mobilele@example.com"
   host: localhost
   port: 1025
