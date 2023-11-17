@@ -56,6 +56,7 @@ class UserRegistrationControllerTestIT {
   void testRegistration() throws Exception {
     mockMvc.perform(
         MockMvcRequestBuilders.post("/users/register")
+            .principal(() -> "anonymousUser")
             .param("email", "pesho@softuni.bg")
             .param("firstName", "Pesho")
             .param("lastName", "Petrov")

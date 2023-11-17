@@ -30,7 +30,7 @@ public class TestDataUtil {
   }
 
   public String createTestOffer(UserEntity owner) {
-
+    return null;
   }
 
   public void cleanAllTestData() {
