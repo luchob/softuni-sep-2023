@@ -29,6 +29,7 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
+    org.springframework.web: DEBUG
 
 
 open.exchange.rates:
@@ -55,3 +56,12 @@ management:
       base-path: /actuator
       exposure:
         include: "*"
+
+google:
+  recaptcha:
+    key:
+      site: ${RECAPTCHA_SITE:}
+      secret: ${RECAPTCHA_SECRET:}
+
+
+

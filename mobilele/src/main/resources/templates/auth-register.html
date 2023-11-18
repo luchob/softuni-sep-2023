@@ -89,7 +89,7 @@
             <div class="col col-md-4">
                 <div class="button-holder d-flex">
                     <button class="g-recaptcha btn btn-info btn-lg"
-                            th:attr="data-sitekey=${@captchaConfig.getSite()}"
+                            th:attr="data-sitekey=${@reCaptchaConfig.getSite()}"
                             data-callback='onSubmit'
                             data-action='submit'>Register</button>
                 </div>

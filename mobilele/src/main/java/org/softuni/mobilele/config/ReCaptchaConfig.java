@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "google.recaptcha.key")
-public class CaptchaConfig {
+public class ReCaptchaConfig {
 
   private String site;
   private String secret;
@@ -14,7 +14,7 @@ public class CaptchaConfig {
     return site;
   }
 
-  public CaptchaConfig setSite(String site) {
+  public ReCaptchaConfig setSite(String site) {
     this.site = site;
     return this;
   }
@@ -23,7 +23,7 @@ public class CaptchaConfig {
     return secret;
   }
 
-  public CaptchaConfig setSecret(String secret) {
+  public ReCaptchaConfig setSecret(String secret) {
     this.secret = secret;
     return this;
   }
