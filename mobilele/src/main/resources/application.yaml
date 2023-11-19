@@ -1,4 +1,6 @@
 spring:
+  aop:
+    proxy-target-class: false
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/mobilele?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
@@ -25,10 +27,10 @@ mobilele:
   remember.me.key: ${REMEBER_ME_KEY:topsecret}
 
 
-logging:
-  level:
-    org.hibernate.SQL: DEBUG
-    org.hibernate.orm.jdbc.bind: TRACE
+#logging:
+#  level:
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.orm.jdbc.bind: TRACE
 
 
 open.exchange.rates:

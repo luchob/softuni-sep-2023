@@ -26,6 +26,7 @@ import org.softuni.mobilele.repository.OfferRepository;
 import org.softuni.mobilele.repository.UserRepository;
 import org.softuni.mobilele.service.MonitoringService;
 import org.softuni.mobilele.service.OfferService;
+import org.softuni.mobilele.service.aop.WarnIfExecutionTimeExceeded;
 import org.softuni.mobilele.service.exception.ObjectNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -71,10 +72,10 @@ public class OfferServiceImpl implements OfferService {
   }
 
   @Override
+  @WarnIfExecutionTimeExceeded(
+      time = 1000
+  )
   public Page<OfferSummaryDTO> getAllOffers(Pageable pageable) {
-
-    monitoringService.logOfferSearch();
-
     return offerRepository
         .findAll(pageable)
         .map(OfferServiceImpl::mapAsSummary);
