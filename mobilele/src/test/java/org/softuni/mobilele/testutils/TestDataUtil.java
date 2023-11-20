@@ -29,11 +29,11 @@ public class TestDataUtil {
     );
   }
 
-  public String createTestOffer(UserEntity owner) {
-
-  }
-
-  public void cleanAllTestData() {
-    exchangeRateRepository.deleteAll();
-  }
+//  public String createTestOffer(UserEntity owner) {
+//
+//  }
+//
+//  public void cleanAllTestData() {
+//    exchangeRateRepository.deleteAll();
+//  }
 }

@@ -3,6 +3,7 @@ package org.softuni.mobilele.web;
 
 import jakarta.validation.Valid;
 import java.util.UUID;
+import org.softuni.mobilele.config.MailConfiguration;
 import org.softuni.mobilele.model.dto.CreateOfferDTO;
 import org.softuni.mobilele.model.dto.OfferDetailDTO;
 import org.softuni.mobilele.model.enums.EngineEnum;
@@ -31,11 +32,14 @@ public class OfferController {
 
   private final OfferService offerService;
   private final BrandService brandService;
+  private final MailConfiguration mailConfiguration;
 
   public OfferController(OfferService offerService,
-      BrandService brandService) {
+      BrandService brandService,
+      MailConfiguration mailConfiguration) {
     this.offerService = offerService;
     this.brandService = brandService;
+    this.mailConfiguration = mailConfiguration;
   }
 
   @ModelAttribute("engines")
