@@ -1,5 +1,6 @@
 package org.softuni.mobilele.model.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,6 +22,7 @@ public class BrandEntity extends BaseEntity {
 
   @OneToMany(
       fetch = FetchType.LAZY,
+      cascade = CascadeType.ALL,
       mappedBy = "brand"
   )
   private List<ModelEntity> models;
