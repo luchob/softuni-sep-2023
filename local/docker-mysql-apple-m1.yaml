@@ -19,18 +19,18 @@ services:
   #    image: redis
   #    ports:
   #      - "6379:6379"
-  promtool:
-    image: prom/prometheus:v2.43.0
-    ports:
-      - 9090:9090
-    volumes:
-      - type: bind
-        source: ./prometheus.yml
-        target: /etc/prometheus/prometheus.yml
-  grafana:
-    image: grafana/grafana:8.5.22
-    ports:
-      - 3000:3000
+#  promtool:
+#    image: prom/prometheus:v2.43.0
+#    ports:
+#      - 9090:9090
+#    volumes:
+#      - type: bind
+#        source: ./prometheus.yml
+#        target: /etc/prometheus/prometheus.yml
+#  grafana:
+#    image: grafana/grafana:8.5.22
+#    ports:
+#      - 3000:3000
 #  zookeeper:
 #    image: wurstmeister/zookeeper
 #    ports:
