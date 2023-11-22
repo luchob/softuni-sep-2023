@@ -1,0 +1,17 @@
+spring:
+  kafka:
+    bootstrapServers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      autoOffsetReset: earliest
+      enableAutoCommit: false
+      max-poll-records: 10
+      properties:
+        spring.json.trusted.packages: '*'
+    listener:
+      ack-mode: manual
+      missingTopicsFatal: false
+
+server:
+  port: 7070
