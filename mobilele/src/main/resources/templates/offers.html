@@ -48,6 +48,31 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="container mt-5">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+
+                    <!-- First page logic start -->
+                    <li class="page-item" th:classappend="${offers.isFirst() ? 'disabled' : ''}">
+                        <a th:if="${offers.isFirst()}" class="page-link" href="#" aria-label="Fisrt"><span aria-hidden="true">&laquo;</span></a>
+                        <a th:unless="${offers.isFirst()}" class="page-link" th:href="@{/offers/all(size=${offers.getSize()})}" aria-label="Fisrt"><span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    <!-- EO: First page logic start -->
+
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+
+                    <!-- Last page logic start -->
+                    <li class="page-item" th:classappend="${offers.isLast() ? 'disabled' : ''}">
+                        <a th:if="${offers.isLast()}" class="page-link" href="#" aria-label="Last"><span aria-hidden="true">&raquo;</span></a>
+                        <a th:unless="${offers.isLast()}" class="page-link" th:href="@{/offers/all(size=${offers.getSize()}, page=${offers.getTotalPages() - 1})}" aria-label="Last"><span aria-hidden="true">&raquo;</span></a>
+                    </li>
+                    <!-- EO: Last page logic start -->
+                </ul>
+            </nav>
+        </div>
     </div>
 
     <div>
