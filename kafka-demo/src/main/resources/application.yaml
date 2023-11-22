@@ -1,0 +1,7 @@
+spring:
+  kafka:
+    producer:
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    bootstrapServers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
