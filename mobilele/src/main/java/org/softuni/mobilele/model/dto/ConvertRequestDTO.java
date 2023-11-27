@@ -5,5 +5,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 
-public record ConvertRequestDTO(@NotEmpty String target, @NotNull @Positive BigDecimal amount) {
+/**
+ * DTO for converting currencies
+ *
+ * @param target the target currency
+ * @param amount the amount that has to be converted
+ */
+public record ConvertRequestDTO(
+    @NotEmpty String target,
+    @NotNull @Positive BigDecimal amount) {
 }
