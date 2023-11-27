@@ -15,6 +15,14 @@ spring:
   sql:
     init:
       mode: never
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: 7d80735f1f41c63bed5b
+            client-secret: ${GITHUB_SECRET:}
+            scope: user:email
   mvc:
     hiddenmethod:
       filter:
