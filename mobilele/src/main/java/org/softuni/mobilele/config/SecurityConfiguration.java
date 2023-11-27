@@ -23,17 +23,15 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
 
   private final String rememberMeKey;
-  private final OAuthSuccessHandler oAuthSuccessHandler;
 
   public SecurityConfiguration(
-      @Value("${mobilele.remember.me.key}") String rememberMeKey,
-      OAuthSuccessHandler oAuthSuccessHandler) {
+      @Value("${mobilele.remember.me.key}") String rememberMeKey) {
     this.rememberMeKey = rememberMeKey;
-    this.oAuthSuccessHandler = oAuthSuccessHandler;
   }
 
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+  public SecurityFilterChain filterChain(HttpSecurity httpSecurity,
+      OAuthSuccessHandler oAuthSuccessHandler) throws Exception {
     return httpSecurity.authorizeHttpRequests(
         // Define which urls are visible by which users
         authorizeRequests -> authorizeRequests

@@ -49,7 +49,8 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void createUserIfNotExist(String email, String names) {
-
+    // Create manually a user in the database
+    // password not necessary
   }
 
   @Override
