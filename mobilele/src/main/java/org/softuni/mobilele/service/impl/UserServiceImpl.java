@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,16 +21,17 @@ public class UserServiceImpl implements UserService {
   private final PasswordEncoder passwordEncoder;
 
   private final ApplicationEventPublisher appEventPublisher;
-  private final MobileleUserDetailsService mobileleUserDetailsService;
+  private final UserDetailsService mobileleUserDetailsService;
 
   public UserServiceImpl(
       UserRepository userRepository,
       PasswordEncoder passwordEncoder,
-      ApplicationEventPublisher appEventPublisher) {
+      ApplicationEventPublisher appEventPublisher,
+      UserDetailsService userDetailsService) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
     this.appEventPublisher = appEventPublisher;
-    this.mobileleUserDetailsService = new MobileleUserDetailsService(userRepository);
+    this.mobileleUserDetailsService = userDetailsService;
   }
 
   @Override
